@@ -1,0 +1,1596 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Briar Wing | The Ink Has Your Schedule Now</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Source+Sans+3:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --color-night: #0a0a0f;
+            --color-shadow: #1a1518;
+            --color-briar: #4a1c2a;
+            --color-rose: #8b2635;
+            --color-rose-gold: #c9a66b;
+            --color-dawn: #e8d5b7;
+            --color-sun: #f4e4bc;
+            --color-light: #faf6ed;
+        }
+        
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            background-color: var(--color-night);
+            color: var(--color-dawn);
+            overflow-x: hidden;
+            font-weight: 300;
+            line-height: 1.8;
+        }
+        
+        .font-serif {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        
+        .bg-journey-dark {
+            background: linear-gradient(180deg, var(--color-night) 0%, var(--color-shadow) 100%);
+        }
+        .bg-journey-middle {
+            background: linear-gradient(180deg, var(--color-shadow) 0%, var(--color-briar) 50%, var(--color-rose) 100%);
+        }
+        .bg-journey-light {
+            background: linear-gradient(180deg, var(--color-rose) 0%, var(--color-rose-gold) 50%, var(--color-dawn) 100%);
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--color-night);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, var(--color-briar), var(--color-rose-gold));
+            border-radius: 4px;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
+        }
+        @keyframes sunPulse {
+            0%, 100% { opacity: 0.8; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
+        @keyframes wingFlap {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+        @keyframes roseGlow {
+            0%, 100% { filter: drop-shadow(0 0 5px rgba(139, 38, 53, 0.5)); }
+            50% { filter: drop-shadow(0 0 20px rgba(139, 38, 53, 0.8)); }
+        }
+        
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        .animate-sun {
+            animation: sunPulse 4s ease-in-out infinite;
+        }
+        .animate-wing {
+            animation: wingFlap 3s ease-in-out infinite;
+            transform-origin: center;
+        }
+        .animate-rose {
+            animation: roseGlow 3s ease-in-out infinite;
+        }
+        
+        .logo-svg {
+            filter: drop-shadow(0 0 10px rgba(201, 166, 107, 0.3));
+        }
+        
+        .prose-poetry {
+            line-height: 2;
+            letter-spacing: 0.01em;
+        }
+        .prose-poetry p {
+            margin-bottom: 2em;
+        }
+        
+        .drop-cap::first-letter {
+            float: left;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 5rem;
+            line-height: 0.8;
+            margin-right: 0.1em;
+            margin-top: 0.05em;
+            color: var(--color-rose);
+            font-weight: 400;
+        }
+        
+        .glass-warm {
+            background: rgba(26, 21, 24, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(201, 166, 107, 0.1);
+        }
+        
+        .section-divider-rose {
+            width: 1px;
+            height: 80px;
+            background: linear-gradient(to bottom, transparent, var(--color-rose), transparent);
+            margin: 0 auto;
+        }
+        .section-divider-gold {
+            width: 1px;
+            height: 80px;
+            background: linear-gradient(to bottom, transparent, var(--color-rose-gold), transparent);
+            margin: 0 auto;
+        }
+        
+        .poem-card {
+            transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+            border-left: 2px solid transparent;
+        }
+        .poem-card:hover {
+            border-left-color: var(--color-rose);
+            padding-left: 2.5rem;
+            background: linear-gradient(90deg, rgba(139, 38, 53, 0.08) 0%, transparent 100%);
+        }
+        
+        .pull-quote {
+            border-left: 3px solid var(--color-rose);
+            padding-left: 2.5rem;
+            margin: 3rem 0;
+            font-style: italic;
+            font-size: 1.35rem;
+            color: var(--color-rose-gold);
+            font-family: 'Cormorant Garamond', serif;
+        }
+        
+        .nav-link {
+            position: relative;
+            letter-spacing: 0.15em;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--color-dawn);
+            opacity: 0.7;
+            transition: all 0.3s;
+        }
+        .nav-link:hover {
+            opacity: 1;
+            color: var(--color-rose-gold);
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -4px;
+            left: 0;
+            background: linear-gradient(to right, var(--color-rose), var(--color-rose-gold));
+            transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .book-cover-warm {
+            background: linear-gradient(135deg, #2d1f1f 0%, #1a1512 50%, #0f0c0a 100%);
+            box-shadow: 
+                inset 4px 0 15px rgba(0,0,0,0.5),
+                inset -1px 0 2px rgba(201, 166, 107, 0.1),
+                10px 10px 30px rgba(0,0,0,0.6),
+                0 0 40px rgba(139, 38, 53, 0.1);
+        }
+        
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(to right, var(--color-briar), var(--color-rose), var(--color-rose-gold), var(--color-sun));
+            z-index: 100;
+            transition: width 0.1s;
+        }
+        
+        .btn-rose {
+            background: transparent;
+            border: 1px solid var(--color-rose);
+            color: var(--color-rose-gold);
+            transition: all 0.4s;
+        }
+        .btn-rose:hover {
+            background: rgba(139, 38, 53, 0.2);
+            border-color: var(--color-rose-gold);
+            box-shadow: 0 0 20px rgba(139, 38, 53, 0.3);
+        }
+        
+        .btn-gold {
+            background: transparent;
+            border: 1px solid var(--color-rose-gold);
+            color: var(--color-sun);
+            transition: all 0.4s;
+        }
+        .btn-gold:hover {
+            background: rgba(201, 166, 107, 0.15);
+            box-shadow: 0 0 20px rgba(201, 166, 107, 0.2);
+        }
+        
+        .sun-burst {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(244, 228, 188, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        
+        /* Artifact card styling */
+        .artifact-card {
+            transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+            border: 1px solid rgba(201, 166, 107, 0.1);
+        }
+        .artifact-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(139, 38, 53, 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 30px rgba(139, 38, 53, 0.1);
+        }
+        
+        .artifact-icon {
+            transition: all 0.4s;
+        }
+        .artifact-card:hover .artifact-icon {
+            transform: scale(1.1);
+            color: var(--color-rose-gold);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-rose-900/30 selection:text-rose-100">
+
+    <!-- Reading Progress -->
+    <div class="reading-progress" id="progress-bar"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass-warm px-6 py-5 transition-all duration-500" id="navbar">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <a href="#" class="flex items-center gap-3 group">
+                <svg width="50" height="50" viewBox="0 0 100 100" class="logo-svg animate-float">
+                    <defs>
+                        <linearGradient id="roseGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#4a1c2a;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#8b2635;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#c9a66b;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="sunGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#f4e4bc;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#e8d5b7;stop-opacity:0.8" />
+                        </linearGradient>
+                    </defs>
+                    <circle cx="70" cy="30" r="15" fill="url(#sunGrad)" class="animate-sun" opacity="0.9"/>
+                    <circle cx="70" cy="30" r="25" fill="url(#sunGrad)" opacity="0.3"/>
+                    <circle cx="70" cy="30" r="35" fill="url(#sunGrad)" opacity="0.1"/>
+                    <path d="M 30 80 Q 25 60 35 50 Q 45 40 40 30" stroke="url(#roseGrad)" stroke-width="3" fill="none" opacity="0.8"/>
+                    <path d="M 35 50 Q 50 55 55 45" stroke="url(#roseGrad)" stroke-width="2" fill="none" opacity="0.6"/>
+                    <g transform="translate(25, 75)" class="animate-rose">
+                        <ellipse cx="10" cy="8" rx="8" ry="10" fill="#8b2635" opacity="0.9"/>
+                        <ellipse cx="10" cy="8" rx="5" ry="7" fill="#4a1c2a" opacity="0.6"/>
+                        <path d="M 10 0 Q 15 5 10 8 Q 5 5 10 0" fill="#c9a66b" opacity="0.5"/>
+                    </g>
+                    <path d="M 28 65 L 32 62 L 28 59" fill="#8b2635" opacity="0.7"/>
+                    <path d="M 38 42 L 42 39 L 38 36" fill="#8b2635" opacity="0.7"/>
+                    <g transform="translate(45, 25)">
+                        <ellipse cx="0" cy="5" rx="6" ry="4" fill="#e8d5b7" opacity="0.9"/>
+                        <circle cx="8" cy="3" r="3.5" fill="#e8d5b7"/>
+                        <path d="M 11 3 L 15 4 L 11 5" fill="#c9a66b"/>
+                        <circle cx="9" cy="2.5" r="0.8" fill="#1a1518"/>
+                        <path d="M -2 5 Q -10 0 -15 5 Q -10 10 -2 8" fill="#f4e4bc" opacity="0.8" class="animate-wing"/>
+                        <path d="M -6 6 Q -12 10 -10 15" stroke="#e8d5b7" stroke-width="2" fill="none"/>
+                    </g>
+                    <path d="M 40 20 L 45 15" stroke="#c9a66b" stroke-width="1" opacity="0.6"/>
+                    <path d="M 50 18 L 55 12" stroke="#c9a66b" stroke-width="1" opacity="0.6"/>
+                </svg>
+                <span class="font-serif text-xl italic text-[#e8d5b7] group-hover:text-[#c9a66b] transition-colors">Briar Wing</span>
+            </a>
+            
+            <div class="hidden md:flex space-x-10">
+                <a href="#book" class="nav-link">The Book</a>
+                <a href="#writings" class="nav-link">Writings</a>
+                <a href="#artifacts" class="nav-link">Artifacts</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            
+            <button class="md:hidden text-[#e8d5b7]" onclick="toggleMobileMenu()">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+        
+        <div id="mobile-menu" class="hidden md:hidden mt-6 pb-4 space-y-4 text-center border-t border-[#c9a66b]/20 pt-4">
+            <a href="#book" class="block nav-link">The Book</a>
+            <a href="#writings" class="block nav-link">Writings</a>
+            <a href="#artifacts" class="block nav-link">Artifacts</a>
+            <a href="#about" class="block nav-link">About</a>
+            <a href="#contact" class="block nav-link">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center pt-24 pb-32 overflow-hidden bg-journey-dark">
+        <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-[#8b2635]/10 to-transparent pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-[#4a1c2a]/20 to-transparent pointer-events-none"></div>
+        <div class="absolute top-20 right-20 sun-burst animate-sun"></div>
+        
+        <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
+            <div class="mb-8 inline-block">
+                <svg width="120" height="120" viewBox="0 0 100 100" class="mx-auto mb-6 animate-float">
+                    <defs>
+                        <linearGradient id="heroRoseGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#4a1c2a" />
+                            <stop offset="50%" style="stop-color:#8b2635" />
+                            <stop offset="100%" style="stop-color:#c9a66b" />
+                        </linearGradient>
+                    </defs>
+                    <circle cx="70" cy="30" r="20" fill="url(#sunGrad)" class="animate-sun" opacity="0.9"/>
+                    <circle cx="70" cy="30" r="30" fill="url(#sunGrad)" opacity="0.2"/>
+                    <path d="M 30 80 Q 25 60 35 50 Q 45 40 40 30" stroke="url(#heroRoseGrad)" stroke-width="3" fill="none"/>
+                    <g transform="translate(25, 75)" class="animate-rose">
+                        <ellipse cx="10" cy="8" rx="10" ry="12" fill="#8b2635"/>
+                        <ellipse cx="10" cy="8" rx="6" ry="8" fill="#4a1c2a"/>
+                    </g>
+                    <g transform="translate(45, 25)">
+                        <ellipse cx="0" cy="5" rx="8" ry="5" fill="#e8d5b7"/>
+                        <circle cx="10" cy="3" r="4" fill="#e8d5b7"/>
+                        <path d="M 12 3 L 17 4 L 12 5" fill="#c9a66b"/>
+                        <path d="M -2 5 Q -12 0 -18 5 Q -12 12 -2 8" fill="#f4e4bc" class="animate-wing"/>
+                    </g>
+                </svg>
+            </div>
+            
+            <p class="text-[#8b2635] text-xs tracking-[0.4em] uppercase mb-6 animate-fade-in-up" style="animation-delay: 0.2s;">
+                Debut Poetry Collection
+            </p>
+            
+            <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl font-light leading-[0.9] mb-8 animate-fade-in-up" style="animation-delay: 0.4s;">
+                <span class="italic text-[#e8d5b7]">The Ink Has</span><br>
+                <span class="not-italic font-normal text-[#c9a66b]">Your Schedule</span><br>
+                <span class="italic text-[#f4e4bc]">Now</span>
+            </h1>
+            
+            <p class="max-w-xl mx-auto text-[#9a9590] text-lg leading-relaxed mb-12 font-light animate-fade-in-up" style="animation-delay: 0.6s;">
+                From the thorn, flight. From the dark, dawn. 
+                A collection about breaking free.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up" style="animation-delay: 0.8s;">
+                <a href="#book" class="btn-rose px-8 py-4 text-sm tracking-[0.2em] uppercase flex items-center gap-3 rounded-sm">
+                    <span>Enter the Garden</span>
+                    <i data-lucide="arrow-down" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
+            <span class="text-[10px] uppercase tracking-[0.3em] text-[#8b2635]">Descend</span>
+            <div class="w-px h-8 bg-gradient-to-b from-[#8b2635] to-transparent"></div>
+        </div>
+    </section>
+
+    <div class="section-divider-rose reveal"></div>
+
+    <!-- The Book Section -->
+    <section id="book" class="py-32 px-6 relative bg-journey-middle">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-16 items-start">
+                <div class="reveal lg:sticky lg:top-32">
+                    <div class="relative max-w-md mx-auto lg:mx-0 transform hover:scale-105 transition-transform duration-700">
+                        <div class="absolute -inset-4 bg-gradient-to-r from-[#8b2635]/30 to-[#c9a66b]/20 rounded-lg blur-2xl"></div>
+                        
+                        <div class="book-cover-warm rounded-r-lg rounded-l-sm aspect-[2/3] flex flex-col justify-between p-10 relative overflow-hidden">
+                            <div class="absolute inset-0 opacity-10">
+                                <svg width="100%" height="100%">
+                                    <pattern id="roses" x="0" y="0" width="50" height="50" patternUnits="userSpaceOnUse">
+                                        <circle cx="25" cy="25" r="2" fill="#8b2635"/>
+                                    </pattern>
+                                    <rect width="100%" height="100%" fill="url(#roses)"/>
+                                </svg>
+                            </div>
+                            
+                            <div class="relative z-10 text-center">
+                                <p class="text-[10px] uppercase tracking-[0.3em] text-[#c9a66b]/80 mb-3">Poetry Collection</p>
+                                <div class="w-16 h-px bg-gradient-to-r from-transparent via-[#8b2635] to-transparent mx-auto"></div>
+                            </div>
+                            
+                            <div class="relative z-10 text-center space-y-6">
+                                <h2 class="font-serif text-5xl md:text-6xl font-light italic leading-tight text-[#e8d5b7]">
+                                    The Ink Has<br>Your<br>Schedule<br>Now
+                                </h2>
+                                <div class="flex justify-center gap-2">
+                                    <span class="text-[#8b2635] text-2xl">🥀</span>
+                                    <div class="w-px h-8 bg-[#c9a66b]/30"></div>
+                                    <span class="text-[#c9a66b] text-2xl">🕊️</span>
+                                    <div class="w-px h-8 bg-[#c9a66b]/30"></div>
+                                    <span class="text-[#f4e4bc] text-2xl">✨</span>
+                                </div>
+                                <p class="font-serif text-2xl italic text-[#c9a66b]">Briar Wing</p>
+                            </div>
+                            
+                            <div class="relative z-10 text-center">
+                                <p class="text-[10px] uppercase tracking-[0.2em] text-[#9a9590]">Forthcoming 2025</p>
+                            </div>
+                            
+                            <div class="absolute left-0 top-0 bottom-0 w-4 bg-gradient-to-r from-black/40 to-transparent"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="space-y-12 reveal">
+                    <div>
+                        <span class="text-[#8b2635] text-xs tracking-[0.3em] uppercase">The Collection</span>
+                        <h3 class="font-serif text-3xl md:text-4xl mt-4 mb-6 font-light italic text-[#e8d5b7]">Through the Thorn, Into Light</h3>
+                        
+                        <div class="prose-poetry text-[#b0aba5] leading-relaxed space-y-6 text-lg">
+                            <p class="drop-cap">
+                                This debut collection traces the journey from shadow to sun—three movements that mirror the breaking of chains, the climbing of mountains, and the flight toward freedom. Like the rose that wraps around the bird, these poems explore how we can be both wounded and winged.
+                            </p>
+                            <p>
+                                <em>The War Nobody Saw</em> opens in the dark—navigating neurodivergent experience, the aftermath of service, and the silence that follows trauma. <em>The Glass Ceiling That Hung Like a Noose</em> moves through the reckoning, the anger, the refusal to apologize for one's existence. Finally, <em>Proof That Something Almost Stood Here</em> arrives at the light—not as happy ending, but as hard-won dawn.
+                            </p>
+                            <p>
+                                Each poem is a step from the 🥀 toward the 🕊️, from the thorn toward the sky, from the night toward the ✨.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="pull-quote">
+                        "We are the shattered glass that still reflects light, the ruins that refuse to be called waste."
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-8 pt-8 border-t border-[#c9a66b]/20">
+                        <div class="text-center p-4 rounded-lg bg-[#4a1c2a]/20">
+                            <p class="text-3xl font-serif text-[#8b2635] mb-1">60+</p>
+                            <p class="text-xs uppercase tracking-[0.2em] text-[#9a9590]">Poems</p>
+                        </div>
+                        <div class="text-center p-4 rounded-lg bg-[#4a1c2a]/20">
+                            <p class="text-3xl font-serif text-[#c9a66b] mb-1">3</p>
+                            <p class="text-xs uppercase tracking-[0.2em] text-[#9a9590]">Movements</p>
+                        </div>
+                        <div class="text-center p-4 rounded-lg bg-[#4a1c2a]/20">
+                            <p class="text-3xl font-serif text-[#f4e4bc] mb-1">2025</p>
+                            <p class="text-xs uppercase tracking-[0.2em] text-[#9a9590]">Publication</p>
+                        </div>
+                        <div class="text-center p-4 rounded-lg bg-[#4a1c2a]/20">
+                            <p class="text-3xl font-serif text-[#e8d5b7] mb-1">🥀🕊️✨</p>
+                            <p class="text-xs uppercase tracking-[0.2em] text-[#9a9590]">Journey</p>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-warm rounded-lg p-8 border border-[#8b2635]/30 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-[#c9a66b]/10 rounded-full blur-3xl"></div>
+                        <h4 class="font-serif text-xl italic mb-4 text-[#e8d5b9]">Be Notified When the Book Arrives</h4>
+                        <p class="text-sm text-[#9a9590] mb-6">Leave your email to receive word when pre-orders become available. From the thorn to the light.</p>
+                        <form class="flex gap-3" onsubmit="event.preventDefault(); alert('Thank you. We will write when the bird breaks free.');">
+                            <input type="email" placeholder="your@email.com" required 
+                                class="flex-1 px-4 py-3 bg-[#0a0a0f]/50 border border-[#c9a66b]/20 rounded-sm focus:border-[#8b2635] outline-none transition-colors text-sm text-[#e8d5b7] placeholder-[#5a5550]">
+                            <button type="submit" 
+                                class="btn-rose px-6 py-3 text-sm uppercase tracking-wider rounded-sm">
+                                Notify
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider-gold reveal"></div>
+
+    <!-- Selected Writings Section -->
+    <section id="writings" class="py-32 px-6 bg-journey-light relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-[#e8d5b7]/5 to-transparent pointer-events-none"></div>
+        
+        <div class="max-w-4xl mx-auto relative z-10">
+            <div class="text-center mb-20 reveal">
+                <span class="text-[#8b2635] text-xs tracking-[0.3em] uppercase">From the Archive</span>
+                <h2 class="font-serif text-4xl md:text-5xl mt-4 font-light italic text-[#1a1518]">Selected Writings</h2>
+                <p class="text-[#5a5550] mt-4 max-w-lg mx-auto">Poems from the journey—thorn, wing, and light.</p>
+            </div>
+            
+            <div class="space-y-16">
+                <article class="poem-card reveal py-8 group cursor-pointer bg-[#faf6ed]/50 rounded-lg p-8 shadow-sm" onclick="togglePoem(this)">
+                    <div class="flex items-baseline justify-between mb-6">
+                        <h3 class="font-serif text-2xl md:text-3xl italic text-[#1a1518] group-hover:text-[#8b2635] transition-colors">The Defiant Pen</h3>
+                        <span class="text-xs text-[#8b2635] uppercase tracking-widest flex items-center gap-1">
+                            <span>🥀</span> From the Collection
+                        </span>
+                    </div>
+                    
+                    <div class="prose-poetry text-[#3a3530] max-h-0 overflow-hidden transition-all duration-700">
+                        <p>
+                            I want a pen with tenacious audacity<br>
+                            that keeps it reluctant to fold—<br>
+                            ink with its own will, we spiral<br>
+                            through pages of a war no one else saw.
+                        </p>
+                        <p>
+                            This is for the unrequited loves,<br>
+                            the forbidden mysteries,<br>
+                            the black sheep who learned<br>
+                            that being the threat to their hierarchy<br>
+                            was always the point.
+                        </p>
+                        <p>
+                            Because loving herself<br>
+                            has become her mountain—<br>
+                            and she climbs with a pen<br>
+                            that refuses to apologize<br>
+                            for its sharp edges. <span class="text-[#c9a66b]">🕊️</span>
+                        </p>
+                    </div>
+                    
+                    <div class="mt-6 flex items-center gap-2 text-xs text-[#8b2635] uppercase tracking-widest group-hover:text-[#c9a66b] transition-colors">
+                        <span class="expand-text">Unfold</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300"></i>
+                    </div>
+                </article>
+
+                <article class="poem-card reveal py-8 group cursor-pointer bg-[#faf6ed]/50 rounded-lg p-8 shadow-sm" style="transition-delay: 0.1s;" onclick="togglePoem(this)">
+                    <div class="flex items-baseline justify-between mb-6">
+                        <h3 class="font-serif text-2xl md:text-3xl italic text-[#1a1518] group-hover:text-[#8b2635] transition-colors">Breaking</h3>
+                        <span class="text-xs text-[#c9a66b] uppercase tracking-widest flex items-center gap-1">
+                            <span>🕊️</span> 2024
+                        </span>
+                    </div>
+                    
+                    <div class="prose-poetry text-[#3a3530] max-h-0 overflow-hidden transition-all duration-700">
+                        <p>
+                            The chain was never as strong<br>
+                            as the will to be free.<br>
+                            I broke not in half<br>
+                            but in whole—<br>
+                            scattered like seeds<br>
+                            that grow in the cracks.
+                        </p>
+                        <p>
+                            Watch me rise<br>
+                            from the architecture of almost,<br>
+                            from the blueprint of broken—<br>
+                            wings unfolding<br>
+                            where the thorns<br>
+                            used to hold me. <span class="text-[#f4e4bc] drop-shadow-sm">✨</span>
+                        </p>
+                    </div>
+                    
+                    <div class="mt-6 flex items-center gap-2 text-xs text-[#8b2635] uppercase tracking-widest group-hover:text-[#c9a66b] transition-colors">
+                        <span class="expand-text">Unfold</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300"></i>
+                    </div>
+                </article>
+
+                <article class="poem-card reveal py-8 group cursor-pointer bg-[#faf6ed]/50 rounded-lg p-8 shadow-sm" style="transition-delay: 0.2s;" onclick="togglePoem(this)">
+                    <div class="flex items-baseline justify-between mb-6">
+                        <h3 class="font-serif text-2xl md:text-3xl italic text-[#1a1518] group-hover:text-[#8b2635] transition-colors">Shattered Glass</h3>
+                        <span class="text-xs text-[#9a9590] uppercase tracking-widest flex items-center gap-1">
+                            <span>✨</span> Early Work
+                        </span>
+                    </div>
+                    
+                    <div class="prose-poetry text-[#3a3530] max-h-0 overflow-hidden transition-all duration-700">
+                        <p>
+                            Proof that something<br>
+                            almost stood here—<br>
+                            the architecture of almost,<br>
+                            the blueprint of broken.
+                        </p>
+                        <p>
+                            I am the shattered glass<br>
+                            that still reflects light,<br>
+                            the ruins that refuse<br>
+                            to be called waste.
+                        </p>
+                        <p>
+                            Build me into your mosaic,<br>
+                            or step carefully<br>
+                            around my edges.<br>
+                            Either way,<br>
+                            I remain. <span class="text-[#8b2635]">🥀</span>
+                        </p>
+                    </div>
+                    
+                    <div class="mt-6 flex items-center gap-2 text-xs text-[#8b2635] uppercase tracking-widest group-hover:text-[#c9a66b] transition-colors">
+                        <span class="expand-text">Unfold</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300"></i>
+                    </div>
+                </article>
+
+                <article class="poem-card reveal py-8 group cursor-pointer bg-[#faf6ed]/50 rounded-lg p-8 shadow-sm" style="transition-delay: 0.3s;" onclick="togglePoem(this)">
+                    <div class="flex items-baseline justify-between mb-6">
+                        <h3 class="font-serif text-2xl md:text-3xl italic text-[#1a1518] group-hover:text-[#8b2635] transition-colors">Wildflowers</h3>
+                        <span class="text-xs text-[#8b2635] uppercase tracking-widest flex items-center gap-1">
+                            <span>🥀</span> From the Collection
+                        </span>
+                    </div>
+                    
+                    <div class="prose-poetry text-[#3a3530] max-h-0 overflow-hidden transition-all duration-700">
+                        <p>
+                            Growing exactly where<br>
+                            you would expect<br>
+                            the wildflowers to grow—<br>
+                            in the cracks of concrete,<br>
+                            in the margins of your<br>
+                            neat little narrative.
+                        </p>
+                        <p>
+                            We are the untended,<br>
+                            the ungovernable,<br>
+                            the ones who bloom<br>
+                            in spite of your neglect,<br>
+                            or perhaps because of it. <span class="text-[#c9a66b]">🕊️</span> <span class="text-[#f4e4bc]">✨</span>
+                        </p>
+                    </div>
+                    
+                    <div class="mt-6 flex items-center gap-2 text-xs text-[#8b2635] uppercase tracking-widest group-hover:text-[#c9a66b] transition-colors">
+                        <span class="expand-text">Unfold</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300"></i>
+                    </div>
+                </article>
+            </div>
+            
+            <div class="mt-20 text-center reveal">
+                <p class="text-[#5a5550] italic font-serif text-lg mb-6">"More poems wait in the complete collection"</p>
+                <a href="#book" class="inline-flex items-center gap-2 text-[#8b2635] hover:text-[#c9a66b] text-sm uppercase tracking-widest transition-colors border-b border-[#8b2635]/30 hover:border-[#c9a66b] pb-1">
+                    Reserve the Journey
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider-rose reveal"></div>
+
+    <!-- Artifacts Section - Tools for the Journey -->
+    <section id="artifacts" class="py-32 px-6 bg-journey-dark relative">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <span class="text-[#c9a66b] text-xs tracking-[0.3em] uppercase">Tools for the Practice</span>
+                <h2 class="font-serif text-4xl md:text-5xl mt-4 font-light italic text-[#e8d5b7]">Artifacts</h2>
+                <p class="text-[#9a9590] mt-4 max-w-2xl mx-auto">
+                    Objects to support your own writing, your own healing, your own becoming. 
+                    For the community of readers and writers building something together.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Journal -->
+                <div class="artifact-card glass-warm rounded-lg p-8 text-center group cursor-pointer reveal">
+                    <div class="artifact-icon w-20 h-20 mx-auto mb-6 rounded-full bg-[#4a1c2a]/30 flex items-center justify-center text-[#8b2635] text-4xl border border-[#8b2635]/20">
+                        📓
+                    </div>
+                    <h3 class="font-serif text-2xl italic text-[#e8d5b7] mb-3">The Thorn Journal</h3>
+                    <p class="text-[#9a9590] text-sm mb-4 leading-relaxed">
+                        200 pages of heavy stock paper for ink that bleeds. 
+                        Embossed with 🥀 on the cover. For the words you haven't said yet.
+                    </p>
+                    <div class="flex items-center justify-center gap-2 text-[#c9a66b] text-xs uppercase tracking-widest">
+                        <span>Coming Soon</span>
+                        <span class="w-1 h-1 rounded-full bg-[#c9a66b]"></span>
+                        <span>£18</span>
+                    </div>
+                </div>
+
+                <!-- Pen -->
+                <div class="artifact-card glass-warm rounded-lg p-8 text-center group cursor-pointer reveal" style="transition-delay: 0.1s;">
+                    <div class="artifact-icon w-20 h-20 mx-auto mb-6 rounded-full bg-[#4a1c2a]/30 flex items-center justify-center text-[#8b2635] text-4xl border border-[#8b2635]/20">
+                        ✒️
+                    </div>
+                    <h3 class="font-serif text-2xl italic text-[#e8d5b7] mb-3">The Defiant Pen</h3>
+                    <p class="text-[#9a9590] text-sm mb-4 leading-relaxed">
+                        Weighted for intention. Rose gold finish with the Briar Wing sigil. 
+                        Ink that flows like the will to be free.
+                    </p>
+                    <div class="flex items-center justify-center gap-2 text-[#c9a66b] text-xs uppercase tracking-widest">
+                        <span>Coming Soon</span>
+                        <span class="w-1 h-1 rounded-full bg-[#c9a66b]"></span>
+                        <span>£12</span>
+                    </div>
+                </div>
+
+                <!-- T-Shirt -->
+                <div class="artifact-card glass-warm rounded-lg p-8 text-center group cursor-pointer reveal" style="transition-delay: 0.2s;">
+                    <div class="artifact-icon w-20 h-20 mx-auto mb-6 rounded-full bg-[#4a1c2a]/30 flex items-center justify-center text-[#8b2635] text-4xl border border-[#8b2635]/20">
+                        👕
+                    </div>
+                    <h3 class="font-serif text- breaks free.');">
+                            <input type="email" placeholder="your@email.com" required 
+                                class="flex-1 px-4 py-3 bg-[#0a0a0f]/50 border border-[#c9a66b]/20 rounded-sm focus:border-[#8b2635] outline-none transition-colors text-sm text-[#e8d5b7] placeholder-[#5a5550]">
+                            <button type="submit" 
+                                class="btn-rose px-6 py-3 text-sm uppercase tracking-wider rounded-sm">
+                                Notify
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider-gold reveal"></div>
+
+    <!-- Selected Writings Section -->
+    <section id="writings" class="py-32 px-6 bg-journey-light relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-[#e8d5b7]/5 to-transparent pointer-events-none"></div>
+        
+        <div class="max-w-4xl mx-auto relative z-10">
+            <div class="text-center mb-20 reveal">
+                <span class="text-[#8b2635] text-xs tracking-[0.3em] uppercase">From the Archive</span>
+                <h2 class="font-serif text-4xl md:text-5xl mt-4 font-light italic text-[#1a1518]">Selected Writings</h2>
+                <p class="text-[#5a5550] mt-4 max-w-lg mx-auto">Poems from the journey—thorn, wing, and light.</p>
+            </div>
+            
+            <div class="space-y-16">
+                <article class="poem-card reveal py-8 group cursor-pointer bg-[#faf6ed]/50 rounded-lg p-8 shadow-sm" onclick="togglePoem(this)">
+                    <div class="flex items-baseline justify-between mb-6">
+                        <h3 class="font-serif text-2xl md:text-3xl italic text-[#1a1518] group-hover:text-[#8b2635] transition-colors">The Defiant Pen</h3>
+                        <span class="text-xs text-[#8b2635] uppercase tracking-widest flex items-center gap-1">
+                            <span>🥀</span> From the Collection
+                        </span>
+                    </div>
+                    
+                    <div class="prose-poetry text-[#3a3530] max-h-0 overflow-hidden transition-all duration-700">
+                        <p>
+                            I want a pen with tenacious audacity<br>
+                            that keeps it reluctant to fold—<br>
+                            ink with its own will, we spiral<br>
+                            through pages of a war no one else saw.
+                        </p>
+                        <p>
+                            This is for the unrequited loves,<br>
+                            the forbidden mysteries,<br>
+                            the black sheep who learned<br>
+                            that being the threat to their hierarchy<br>
+                            was always the point.
+                        </p>
+                        <p>
+                            Because loving herself<br>
+                            has become her mountain—<br>
+                            and she climbs with a pen<br>
+                            that refuses to apologize<br>
+                            for its sharp edges. <span class="text-[#c9a66b]">🕊️</span>
+                        </p>
+                    </div>
+                    
+                    <div class="mt-6 flex items-center gap-2 text-xs text-[#8b2635] uppercase tracking-widest group-hover:text-[#c9a66b] transition-colors">
+                        <span class="expand-text">Unfold</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300"></i>
+                    </div>
+                </article>
+
+                <article class="poem-card reveal py-8 group cursor-pointer bg-[#faf6ed]/50 rounded-lg p-8 shadow-sm" style="transition-delay: 0.1s;" onclick="togglePoem(this)">
+                    <div class="flex items-baseline justify-between mb-6">
+                        <h3 class="font-serif text-2xl md:text-3xl italic text-[#1a1518] group-hover:text-[#8b2635] transition-colors">Breaking</h3>
+                        <span class="text-xs text-[#c9a66b] uppercase tracking-widest flex items-center gap-1">
+                            <span>🕊️</span> 2024
+                        </span>
+                    </div>
+                    
+                    <div class="prose-poetry text-[#3a3530] max-h-0 overflow-hidden transition-all duration-700">
+                        <p>
+                            The chain was never as strong<br>
+                            as the will to be free.<br>
+                            I broke not in half<br>
+                            but in whole—<br>
+                            scattered like seeds<br>
+                            that grow in the cracks.
+                        </p>
+                        <p>
+                            Watch me rise<br>
+                            from the architecture of almost,<br>
+                            from the blueprint of broken—<br>
+                            wings unfolding<br>
+                            where the thorns<br>
+                            used to hold me. <span class="text-[#f4e4bc] drop-shadow-sm">✨</span>
+                        </p>
+                    </div>
+                    
+                    <div class="mt-6 flex items-center gap-2 text-xs text-[#8b2635] uppercase tracking-widest group-hover:text-[#c9a66b] transition-colors">
+                        <span class="expand-text">Unfold</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300"></i>
+                    </div>
+                </article>
+
+                <article class="poem-card reveal py-8 group cursor-pointer bg-[#faf6ed]/50 rounded-lg p-8 shadow-sm" style="transition-delay: 0.2s;" onclick="togglePoem(this)">
+                    <div class="flex items-baseline justify-between mb-6">
+                        <h3 class="font-serif text-2xl md:text-3xl italic text-[#1a1518] group-hover:text-[#8b2635] transition-colors">Shattered Glass</h3>
+                        <span class="text-xs text-[#9a9590] uppercase tracking-widest flex items-center gap-1">
+                            <span>✨</span> Early Work
+                        </span>
+                    </div>
+                    
+                    <div class="prose-poetry text-[#3a3530] max-h-0 overflow-hidden transition-all duration-700">
+                        <p>
+                            Proof that something<br>
+                            almost stood here—<br>
+                            the architecture of almost,<br>
+                            the blueprint of broken.
+                        </p>
+                        <p>
+                            I am the shattered glass<br>
+                            that still reflects light,<br>
+                            the ruins that refuse<br>
+                            to be called waste.
+                        </p>
+                        <p>
+                            Build me into your mosaic,<br>
+                            or step carefully<br>
+                            around my edges.<br>
+                            Either way,<br>
+                            I remain. <span class="text-[#8b2635]">🥀</span>
+                        </p>
+                    </div>
+                    
+                    <div class="mt-6 flex items-center gap-2 text-xs text-[#8b2635] uppercase tracking-widest group-hover:text-[#c9a66b] transition-colors">
+                        <span class="expand-text">Unfold</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300"></i>
+                    </div>
+                </article>
+
+                <article class="poem-card reveal py-8 group cursor-pointer bg-[#faf6ed]/50 rounded-lg p-8 shadow-sm" style="transition-delay: 0.3s;" onclick="togglePoem(this)">
+                    <div class="flex items-baseline justify-between mb-6">
+                        <h3 class="font-serif text-2xl md:text-3xl italic text-[#1a1518] group-hover:text-[#8b2635] transition-colors">Wildflowers</h3>
+                        <span class="text-xs text-[#8b2635] uppercase tracking-widest flex items-center gap-1">
+                            <span>🥀</span> From the Collection
+                        </span>
+                    </div>
+                    
+                    <div class="prose-poetry text-[#3a3530] max-h-0 overflow-hidden transition-all duration-700">
+                        <p>
+                            Growing exactly where<br>
+                            you would expect<br>
+                            the wildflowers to grow—<br>
+                            in the cracks of concrete,<br>
+                            in the margins of your<br>
+                            neat little narrative.
+                        </p>
+                        <p>
+                            We are the untended,<br>
+                            the ungovernable,<br>
+                            the ones who bloom<br>
+                            in spite of your neglect,<br>
+                            or perhaps because of it. <span class="text-[#c9a66b]">🕊️</span> <span class="text-[#f4e4bc]">✨</span>
+                        </p>
+                    </div>
+                    
+                    <div class="mt-6 flex items-center gap-2 text-xs text-[#8b2635] uppercase tracking-widest group-hover:text-[#c9a66b] transition-colors">
+                        <span class="expand-text">Unfold</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300"></i>
+                    </div>
+                </article>
+            </div>
+            
+            <div class="mt-20 text-center reveal">
+                <p class="text-[#5a5550] italic font-serif text-lg mb-6">"More poems wait in the complete collection"</p>
+                <a href="#book" class="inline-flex items-center gap-2 text-[#8b2635] hover:text-[#c9a66b] text-sm uppercase tracking-widest transition-colors border-b border-[#8b2635]/30 hover:border-[#c9a66b] pb-1">
+                    Reserve the Journey
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider-rose reveal"></div>
+
+    <!-- Artifacts Section - Tools for the Journey -->
+    <section id="artifacts" class="py-32 px-6 bg-journey-dark relative">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <span class="text-[#c9a66b] text-xs tracking-[0.3em] uppercase">Tools for the Practice</span>
+                <h2 class="font-serif text-4xl md:text-5xl mt-4 font-light italic text-[#e8d5b7]">Artifacts</h2>
+                <p class="text-[#9a9590] mt-4 max-w-2xl mx-auto">
+                    Objects to support your own writing, your own healing, your own becoming. 
+                    For the community of readers and writers building something together.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Journal -->
+                <div class="artifact-card glass-warm rounded-lg p-8 text-center group cursor-pointer reveal">
+                    <div class="artifact-icon w-20 h-20 mx-auto mb-6 rounded-full bg-[#4a1c2a]/30 flex items-center justify-center text-[#8b2635] text-4xl border border-[#8b2635]/20">
+                        📓
+                    </div>
+                    <h3 class="font-serif text-2xl italic text-[#e8d5b7] mb-3">The Thorn Journal</h3>
+                    <p class="text-[#9a9590] text-sm mb-4 leading-relaxed">
+                        200 pages of heavy stock paper for ink that bleeds. 
+                        Embossed with 🥀 on the cover. For the words you haven't said yet.
+                    </p>
+                    <div class="flex items-center justify-center gap-2 text-[#c9a66b] text-xs uppercase tracking-widest">
+                        <span>Coming Soon</span>
+                        <span class="w-1 h-1 rounded-full bg-[#c9a66b]"></span>
+                        <span>£18</span>
+                    </div>
+                </div>
+
+                <!-- Pen -->
+                <div class="artifact-card glass-warm rounded-lg p-8 text-center group cursor-pointer reveal" style="transition-delay: 0.1s;">
+                    <div class="artifact-icon w-20 h-20 mx-auto mb-6 rounded-full bg-[#4a1c2a]/30 flex items-center justify-center text-[#8b2635] text-4xl border border-[#8b2635]/20">
+                        ✒️
+                    </div>
+                    <h3 class="font-serif text-2xl italic text-[#e8d5b7] mb-3">The Defiant Pen</h3>
+                    <p class="text-[#9a9590] text-sm mb-4 leading-relaxed">
+                        Weighted for intention. Rose gold finish with the Briar Wing sigil. 
+                        Ink that flows like the will to be free.
+                    </p>
+                    <div class="flex items-center justify-center gap-2 text-[#c9a66b] text-xs uppercase tracking-widest">
+                        <span>Coming Soon</span>
+                        <span class="w-1 h-1 rounded-full bg-[#c9a66b]"></span>
+                        <span>£12</span>
+                    </div>
+                </div>
+
+                <!-- T-Shirt -->
+                <div class="artifact-card glass-warm rounded-lg p-8 text-center group cursor-pointer reveal" style="transition-delay: 0.2s;">
+                    <div class="artifact-icon w-20 h-20 mx-auto mb-6 rounded-full bg-[#4a1c2a]/30 flex items-center justify-center text-[#8b2635] text-4xl border border-[#8b2635]/20">
+                        👕
+                    </div>
+                    <h3 class="font-serif text-2xl italic text-[#e8d5b7] mb-3">The Flight Tee</h3>
+                    <p class="text-[#9a9590] text-sm mb-4 leading-relaxed">
+                        Soft cotton in shadow black or dawn cream. 
+                        The 🥀🕊️✨ sigil on the chest. Wear your becoming.
+                    </p>
+                    <div class="flex items-center justify-center gap-2 text-[#c9a66b] text-xs uppercase tracking-widest">
+                        <span>Coming Soon</span>
+                        <span class="w-1 h-1 rounded-full bg-[#c9a66b]"></span>
+                        <span>£24</span>
+                    </div>
+                </div>
+
+                <!-- Keyring -->
+                <div class="artifact-card glass-warm rounded-lg p-8 text-center group cursor-pointer reveal">
+                    <div class="artifact-icon w-20 h-20 mx-auto mb-6 rounded-full bg-[#4a1c2a]/30 flex items-center justify-center text-[#8b2635] text-4xl border border-[#8b2635]/20">
+                        🗝️
+                    </div>
+                    <h3 class="font-serif text-2xl italic text-[#e8d5b7] mb-3">The Threshold Keyring</h3>
+                    <p class="text-[#9a9590] text-sm mb-4 leading-relaxed">
+                        Brass with the three symbols. A reminder that you carry the journey 
+                        with you—thorn, wing, and light.
+                    </p>
+                    <div class="flex items-center justify-center gap-2 text-[#c9a66b] text-xs uppercase tracking-widest">
+                        <span>Coming Soon</span>
+                        <span class="w-1 h-1 rounded-full bg-[#c9a66b]"></span>
+                        <span>£8</span>
+                    </div>
+                </div>
+
+                <!-- Coasters -->
+                <div class="artifact-card glass-warm rounded-lg p-8 text-center group cursor-pointer reveal" style="transition-delay: 0.1s;">
+                    <div class="artifact-icon w-20 h-20 mx-auto mb-6 rounded-full bg-[#4a1c2a]/30 flex items-center justify-center text-[#8b2635] text-4xl border border-[#8b2635]/20">
+                        ☕
+                    </div>
+                    <h3 class="font-serif text-2xl italic text-[#e8d5b7] mb-3">The Ritual Coasters</h3>
+                    <p class="text-[#9a9590] text-sm mb-4 leading-relaxed">
+                        Set of four slate coasters, each engraved with a line from the collection. 
+                        For the sacred pause between poems.
+                    </p>
+                    <div class="flex items-center justify-center gap-2 text-[#c9a66b] text-xs uppercase tracking-widest">
+                        <span>Coming Soon</span>
+                        <span class="w-1 h-1 rounded-full bg-[#c9a66b]"></span>
+                        <span>£16</span>
+                    </div>
+                </div>
+
+                <!-- Notebook -->
+                <div class="artifact-card glass-warm rounded-lg p-8 text-center group cursor-pointer reveal" style="transition-delay: 0.2s;">
+                    <div class="artifact-icon w-20 h-20 mx-auto mb-6 rounded-full bg-[#4a1c2a]/30 flex items-center justify-center text-[#8b2635] text-4xl border border-[#8b2635]/20">
+                        📖
+                    </div>
+                    <h3 class="font-serif text-2xl italic text-[#e8d5b7] mb-3">The Pocket Companion</h3>
+                    <p class="text-[#9a9590] text-sm mb-4 leading-relaxed">
+                        Small enough for a coat pocket. 80 pages for sudden thoughts. 
+                        The 🕊️ on the cover—flight at hand.
+                    </p>
+                    <div class="flex items-center justify-center gap-2 text-[#c9a66b] text-xs uppercase tracking-widest">
+                        <span>Coming Soon</span>
+                        <span class="w-1 h-1 rounded-full bg-[#c9a66b]"></span>
+                        <span>£10</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-16 text-center reveal">
+                <div class="glass-warm rounded-lg p-8 max-w-2xl mx-auto border border-[#c9a66b]/10">
+                    <p class="text-[#c9a66b] font-serif italic text-lg mb-4">
+                        "These are not products. They are invitations—to write, to heal, to become."
+                    </p>
+                    <p class="text-[#9a9590] text-sm">
+                        All artifacts produced in small batches with sustainable materials. 
+                        No mass production. No corporate machinery. Just the work, made tangible.
+                    </p>
+                    <div class="mt-6 flex justify-center gap-4">
+                        <span class="text-xs text-[#5a5550] uppercase tracking-widest">🥀 Made with intention</span>
+                        <span class="text-xs text-[#5a5550] uppercase tracking-widest">🕊️ Small batches</span>
+                        <span class="text-xs text-[#5a5550] uppercase tracking-widest">✨ Sustainable</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider-gold reveal"></div>
+
+    <!-- About Section -->
+    <section id="about" class="py-32 px-6 bg-journey-middle relative">
+        <div class="max-w-4xl mx-auto">
+            <div class="reveal text-center mb-16">
+                <span class="text-[#8b2635] text-xs tracking-[0.3em] uppercase">The Symbolism</span>
+                <h2 class="font-serif text-4xl md:text-5xl mt-4 font-light italic text-[#e8d5b7]">🥀 🕊️ ✨</h2>
+            </div>
+            
+            <div class="glass-warm rounded-lg p-8 md:p-12 reveal border border-[#c9a66b]/10 relative overflow-hidden">
+                <div class="absolute -top-20 -right-20 w-64 h-64 bg-[#c9a66b]/10 rounded-full blur-3xl"></div>
+                
+                <div class="prose-poetry text-[#b0aba5] leading-[2] text-lg space-y-6 max-w-3xl mx-auto relative z-10">
+                    <p class="drop-cap text-center md:text-left text-[#e8d5b7]">
+                        Briar Wing writes from the liminal spaces—the threshold where the thorn meets the wing, where the dark yields to dawn. The rose (🥀) represents the beautiful wound, the defense that becomes art, the pain that transforms rather than destroys.
+                    </p>
+                    <p>
+                        The bird (🕊️) is the breaking free—not as escape, but as evolution. It carries the thorn's wisdom into the sky, understanding that flight requires both the wound and the will to rise.
+                    </p>
+                    <p>
+                        The sun (✨) is not the absence of shadow, but the light that makes the shadow visible. It represents the hard-won dawn after the long night of writing, the community gathering, the hope that persists.
+                    </p>
+                    <p class="text-[#c9a66b] italic font-serif text-xl text-center mt-8">
+                        "From the thorn, the wing. From the wound, the word. From the night, the light."
+                    </p>
+                </div>
+                
+                <div class="mt-12 pt-8 border-t border-[#c9a66b]/10 flex flex-wrap justify-center gap-12 text-center">
+                    <div class="group cursor-default">
+                        <p class="text-3xl mb-2 group-hover:scale-110 transition-transform">🥀</p>
+                        <p class="text-xs uppercase tracking-[0.2em] text-[#8b2635]">The Thorn</p>
+                        <p class="text-[10px] text-[#5a5550] mt-1">Survival</p>
+                    </div>
+                    <div class="group cursor-default">
+                        <p class="text-3xl mb-2 group-hover:scale-110 transition-transform">🕊️</p>
+                        <p class="text-xs uppercase tracking-[0.2em] text-[#c9a66b]">The Wing</p>
+                        <p class="text-[10px] text-[#5a5550] mt-1">Freedom</p>
+                    </div>
+                    <div class="group cursor-default">
+                        <p class="text-3xl mb-2 group-hover:scale-110 transition-transform">✨</p>
+                        <p class="text-xs uppercase tracking-[0.2em] text-[#f4e4bc]">The Light</p>
+                        <p class="text-[10px] text-[#5a5550] mt-1">Becoming</p>
+                    </div>
+                </div breaks free.');">
+                            <input type="email" placeholder="your@email.com" required 
+                                class="flex-1 px-4 py-3 bg-[#0a0a0f]/50 border border-[#c9a66b]/20 rounded-sm focus:border-[#8b2635] outline-none transition-colors text-sm text-[#e8d5b7] placeholder-[#5a5550]">
+                            <button type="submit" 
+                                class="btn-rose px-6 py-3 text-sm uppercase tracking-wider rounded-sm">
+                                Notify
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider-gold reveal"></div>
+
+    <!-- Selected Writings Section -->
+    <section id="writings" class="py-32 px-6 bg-journey-light relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-[#e8d5b7]/5 to-transparent pointer-events-none"></div>
+        
+        <div class="max-w-4xl mx-auto relative z-10">
+            <div class="text-center mb-20 reveal">
+                <span class="text-[#8b2635] text-xs tracking-[0.3em] uppercase">From the Archive</span>
+                <h2 class="font-serif text-4xl md:text-5xl mt-4 font-light italic text-[#1a1518]">Selected Writings</h2>
+                <p class="text-[#5a5550] mt-4 max-w-lg mx-auto">Poems from the journey—thorn, wing, and light.</p>
+            </div>
+            
+            <div class="space-y-16">
+                <article class="poem-card reveal py-8 group cursor-pointer bg-[#faf6ed]/50 rounded-lg p-8 shadow-sm" onclick="togglePoem(this)">
+                    <div class="flex items-baseline justify-between mb-6">
+                        <h3 class="font-serif text-2xl md:text-3xl italic text-[#1a1518] group-hover:text-[#8b2635] transition-colors">The Defiant Pen</h3>
+                        <span class="text-xs text-[#8b2635] uppercase tracking-widest flex items-center gap-1">
+                            <span>🥀</span> From the Collection
+                        </span>
+                    </div>
+                    
+                    <div class="prose-poetry text-[#3a3530] max-h-0 overflow-hidden transition-all duration-700">
+                        <p>
+                            I want a pen with tenacious audacity<br>
+                            that keeps it reluctant to fold—<br>
+                            ink with its own will, we spiral<br>
+                            through pages of a war no one else saw.
+                        </p>
+                        <p>
+                            This is for the unrequited loves,<br>
+                            the forbidden mysteries,<br>
+                            the black sheep who learned<br>
+                            that being the threat to their hierarchy<br>
+                            was always the point.
+                        </p>
+                        <p>
+                            Because loving herself<br>
+                            has become her mountain—<br>
+                            and she climbs with a pen<br>
+                            that refuses to apologize<br>
+                            for its sharp edges. <span class="text-[#c9a66b]">🕊️</span>
+                        </p>
+                    </div>
+                    
+                    <div class="mt-6 flex items-center gap-2 text-xs text-[#8b2635] uppercase tracking-widest group-hover:text-[#c9a66b] transition-colors">
+                        <span class="expand-text">Unfold</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300"></i>
+                    </div>
+                </article>
+
+                <article class="poem-card reveal py-8 group cursor-pointer bg-[#faf6ed]/50 rounded-lg p-8 shadow-sm" style="transition-delay: 0.1s;" onclick="togglePoem(this)">
+                    <div class="flex items-baseline justify-between mb-6">
+                        <h3 class="font-serif text-2xl md:text-3xl italic text-[#1a1518] group-hover:text-[#8b2635] transition-colors">Breaking</h3>
+                        <span class="text-xs text-[#c9a66b] uppercase tracking-widest flex items-center gap-1">
+                            <span>🕊️</span> 2024
+                        </span>
+                    </div>
+                    
+                    <div class="prose-poetry text-[#3a3530] max-h-0 overflow-hidden transition-all duration-700">
+                        <p>
+                            The chain was never as strong<br>
+                            as the will to be free.<br>
+                            I broke not in half<br>
+                            but in whole—<br>
+                            scattered like seeds<br>
+                            that grow in the cracks.
+                        </p>
+                        <p>
+                            Watch me rise<br>
+                            from the architecture of almost,<br>
+                            from the blueprint of broken—<br>
+                            wings unfolding<br>
+                            where the thorns<br>
+                            used to hold me. <span class="text-[#f4e4bc] drop-shadow-sm">✨</span>
+                        </p>
+                    </div>
+                    
+                    <div class="mt-6 flex items-center gap-2 text-xs text-[#8b2635] uppercase tracking-widest group-hover:text-[#c9a66b] transition-colors">
+                        <span class="expand-text">Unfold</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300"></i>
+                    </div>
+                </article>
+
+                <article class="poem-card reveal py-8 group cursor-pointer bg-[#faf6ed]/50 rounded-lg p-8 shadow-sm" style="transition-delay: 0.2s;" onclick="togglePoem(this)">
+                    <div class="flex items-baseline justify-between mb-6">
+                        <h3 class="font-serif text-2xl md:text-3xl italic text-[#1a1518] group-hover:text-[#8b2635] transition-colors">Shattered Glass</h3>
+                        <span class="text-xs text-[#9a9590] uppercase tracking-widest flex items-center gap-1">
+                            <span>✨</span> Early Work
+                        </span>
+                    </div>
+                    
+                    <div class="prose-poetry text-[#3a3530] max-h-0 overflow-hidden transition-all duration-700">
+                        <p>
+                            Proof that something<br>
+                            almost stood here—<br>
+                            the architecture of almost,<br>
+                            the blueprint of broken.
+                        </p>
+                        <p>
+                            I am the shattered glass<br>
+                            that still reflects light,<br>
+                            the ruins that refuse<br>
+                            to be called waste.
+                        </p>
+                        <p>
+                            Build me into your mosaic,<br>
+                            or step carefully<br>
+                            around my edges.<br>
+                            Either way,<br>
+                            I remain. <span class="text-[#8b2635]">🥀</span>
+                        </p>
+                    </div>
+                    
+                    <div class="mt-6 flex items-center gap-2 text-xs text-[#8b2635] uppercase tracking-widest group-hover:text-[#c9a66b] transition-colors">
+                        <span class="expand-text">Unfold</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300"></i>
+                    </div>
+                </article>
+
+                <article class="poem-card reveal py-8 group cursor-pointer bg-[#faf6ed]/50 rounded-lg p-8 shadow-sm" style="transition-delay: 0.3s;" onclick="togglePoem(this)">
+                    <div class="flex items-baseline justify-between mb-6">
+                        <h3 class="font-serif text-2xl md:text-3xl italic text-[#1a1518] group-hover:text-[#8b2635] transition-colors">Wildflowers</h3>
+                        <span class="text-xs text-[#8b2635] uppercase tracking-widest flex items-center gap-1">
+                            <span>🥀</span> From the Collection
+                        </span>
+                    </div>
+                    
+                    <div class="prose-poetry text-[#3a3530] max-h-0 overflow-hidden transition-all duration-700">
+                        <p>
+                            Growing exactly where<br>
+                            you would expect<br>
+                            the wildflowers to grow—<br>
+                            in the cracks of concrete,<br>
+                            in the margins of your<br>
+                            neat little narrative.
+                        </p>
+                        <p>
+                            We are the untended,<br>
+                            the ungovernable,<br>
+                            the ones who bloom<br>
+                            in spite of your neglect,<br>
+                            or perhaps because of it. <span class="text-[#c9a66b]">🕊️</span> <span class="text-[#f4e4bc]">✨</span>
+                        </p>
+                    </div>
+                    
+                    <div class="mt-6 flex items-center gap-2 text-xs text-[#8b2635] uppercase tracking-widest group-hover:text-[#c9a66b] transition-colors">
+                        <span class="expand-text">Unfold</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300"></i>
+                    </div>
+                </article>
+            </div>
+            
+            <div class="mt-20 text-center reveal">
+                <p class="text-[#5a5550] italic font-serif text-lg mb-6">"More poems wait in the complete collection"</p>
+                <a href="#book" class="inline-flex items-center gap-2 text-[#8b2635] hover:text-[#c9a66b] text-sm uppercase tracking-widest transition-colors border-b border-[#8b2635]/30 hover:border-[#c9a66b] pb-1">
+                    Reserve the Journey
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider-rose reveal"></div>
+
+    <!-- Artifacts Section - Tools for the Journey -->
+    <section id="artifacts" class="py-32 px-6 bg-journey-dark relative">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <span class="text-[#c9a66b] text-xs tracking-[0.3em] uppercase">Tools for the Practice</span>
+                <h2 class="font-serif text-4xl md:text-5xl mt-4 font-light italic text-[#e8d5b7]">Artifacts</h2>
+                <p class="text-[#9a9590] mt-4 max-w-2xl mx-auto">
+                    Objects to support your own writing, your own healing, your own becoming. 
+                    For the community of readers and writers building something together.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Journal -->
+                <div class="artifact-card glass-warm rounded-lg p-8 text-center group cursor-pointer reveal">
+                    <div class="artifact-icon w-20 h-20 mx-auto mb-6 rounded-full bg-[#4a1c2a]/30 flex items-center justify-center text-[#8b2635] text-4xl border border-[#8b2635]/20">
+                        📓
+                    </div>
+                    <h3 class="font-serif text-2xl italic text-[#e8d5b7] mb-3">The Thorn Journal</h3>
+                    <p class="text-[#9a9590] text-sm mb-4 leading-relaxed">
+                        200 pages of heavy stock paper for ink that bleeds. 
+                        Embossed with 🥀 on the cover. For the words you haven't said yet.
+                    </p>
+                    <div class="flex items-center justify-center gap-2 text-[#c9a66b] text-xs uppercase tracking-widest">
+                        <span>Coming Soon</span>
+                        <span class="w-1 h-1 rounded-full bg-[#c9a66b]"></span>
+                        <span>£18</span>
+                    </div>
+                </div>
+
+                <!-- Pen -->
+                <div class="artifact-card glass-warm rounded-lg p-8 text-center group cursor-pointer reveal" style="transition-delay: 0.1s;">
+                    <div class="artifact-icon w-20 h-20 mx-auto mb-6 rounded-full bg-[#4a1c2a]/30 flex items-center justify-center text-[#8b2635] text-4xl border border-[#8b2635]/20">
+                        ✒️
+                    </div>
+                    <h3 class="font-serif text-2xl italic text-[#e8d5b7] mb-3">The Defiant Pen</h3>
+                    <p class="text-[#9a9590] text-sm mb-4 leading-relaxed">
+                        Weighted for intention. Rose gold finish with the Briar Wing sigil. 
+                        Ink that flows like the will to be free.
+                    </p>
+                    <div class="flex items-center justify-center gap-2 text-[#c9a66b] text-xs uppercase tracking-widest">
+                        <span>Coming Soon</span>
+                        <span class="w-1 h-1 rounded-full bg-[#c9a66b]"></span>
+                        <span>£12</span>
+                    </div>
+                </div>
+
+                <!-- T-Shirt -->
+                <div class="artifact-card glass-warm rounded-lg p-8 text-center group cursor-pointer reveal" style="transition-delay: 0.2s;">
+                    <div class="artifact-icon w-20 h-20 mx-auto mb-6 rounded-full bg-[#4a1c2a]/30 flex items-center justify-center text-[#8b2635] text-4xl border border-[#8b2635]/20">
+                        👕
+                    </div>
+                    <h3 class="font-serif text-2xl italic text-[#e8d5b7] mb-3">The Flight Tee</h3>
+                    <p class="text-[#9a9590] text-sm mb-4 leading-relaxed">
+                        Soft cotton in shadow black or dawn cream. 
+                        The 🥀🕊️✨ sigil on the chest. Wear your becoming.
+                    </p>
+                    <div class="flex items-center justify-center gap-2 text-[#c9a66b] text-xs uppercase tracking-widest">
+                        <span>Coming Soon</span>
+                        <span class="w-1 h-1 rounded-full bg-[#c9a66b]"></span>
+                        <span>£24</span>
+                    </div>
+                </div>
+
+                <!-- Keyring -->
+                <div class="artifact-card glass-warm rounded-lg p-8 text-center group cursor-pointer reveal">
+                    <div class="artifact-icon w-20 h-20 mx-auto mb-6 rounded-full bg-[#4a1c2a]/30 flex items-center justify-center text-[#8b2635] text-4xl border border-[#8b2635]/20">
+                        🗝️
+                    </div>
+                    <h3 class="font-serif text-2xl italic text-[#e8d5b7] mb-3">The Threshold Keyring</h3>
+                    <p class="text-[#9a9590] text-sm mb-4 leading-relaxed">
+                        Brass with the three symbols. A reminder that you carry the journey 
+                        with you—thorn, wing, and light.
+                    </p>
+                    <div class="flex items-center justify-center gap-2 text-[#c9a66b] text-xs uppercase tracking-widest">
+                        <span>Coming Soon</span>
+                        <span class="w-1 h-1 rounded-full bg-[#c9a66b]"></span>
+                        <span>£8</span>
+                    </div>
+                </div>
+
+                <!-- Coasters -->
+                <div class="artifact-card glass-warm rounded-lg p-8 text-center group cursor-pointer reveal" style="transition-delay: 0.1s;">
+                    <div class="artifact-icon w-20 h-20 mx-auto mb-6 rounded-full bg-[#4a1c2a]/30 flex items-center justify-center text-[#8b2635] text-4xl border border-[#8b2635]/20">
+                        ☕
+                    </div>
+                    <h3 class="font-serif text-2xl italic text-[#e8d5b7] mb-3">The Ritual Coasters</h3>
+                    <p class="text-[#9a9590] text-sm mb-4 leading-relaxed">
+                        Set of four slate coasters, each engraved with a line from the collection. 
+                        For the sacred pause between poems.
+                    </p>
+                    <div class="flex items-center justify-center gap-2 text-[#c9a66b] text-xs uppercase tracking-widest">
+                        <span>Coming Soon</span>
+                        <span class="w-1 h-1 rounded-full bg-[#c9a66b]"></span>
+                        <span>£16</span>
+                    </div>
+                </div>
+
+                <!-- Notebook -->
+                <div class="artifact-card glass-warm rounded-lg p-8 text-center group cursor-pointer reveal" style="transition-delay: 0.2s;">
+                    <div class="artifact-icon w-20 h-20 mx-auto mb-6 rounded-full bg-[#4a1c2a]/30 flex items-center justify-center text-[#8b2635] text-4xl border border-[#8b2635]/20">
+                        📖
+                    </div>
+                    <h3 class="font-serif text-2xl italic text-[#e8d5b7] mb-3">The Pocket Companion</h3>
+                    <p class="text-[#9a9590] text-sm mb-4 leading-relaxed">
+                        Small enough for a coat pocket. 80 pages for sudden thoughts. 
+                        The 🕊️ on the cover—flight at hand.
+                    </p>
+                    <div class="flex items-center justify-center gap-2 text-[#c9a66b] text-xs uppercase tracking-widest">
+                        <span>Coming Soon</span>
+                        <span class="w-1 h-1 rounded-full bg-[#c9a66b]"></span>
+                        <span>£10</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-16 text-center reveal">
+                <div class="glass-warm rounded-lg p-8 max-w-2xl mx-auto border border-[#c9a66b]/10">
+                    <p class="text-[#c9a66b] font-serif italic text-lg mb-4">
+                        "These are not products. They are invitations—to write, to heal, to become."
+                    </p>
+                    <p class="text-[#9a9590] text-sm">
+                        All artifacts produced in small batches with sustainable materials. 
+                        No mass production. No corporate machinery. Just the work, made tangible.
+                    </p>
+                    <div class="mt-6 flex justify-center gap-4">
+                        <span class="text-xs text-[#5a5550] uppercase tracking-widest">🥀 Made with intention</span>
+                        <span class="text-xs text-[#5a5550] uppercase tracking-widest">🕊️ Small batches</span>
+                        <span class="text-xs text-[#5a5550] uppercase tracking-widest">✨ Sustainable</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider-gold reveal"></div>
+
+    <!-- About Section -->
+    <section id="about" class="py-32 px-6 bg-journey-middle relative">
+        <div class="max-w-4xl mx-auto">
+            <div class="reveal text-center mb-16">
+                <span class="text-[#8b2635] text-xs tracking-[0.3em] uppercase">The Symbolism</span>
+                <h2 class="font-serif text-4xl md:text-5xl mt-4 font-light italic text-[#e8d5b7]">🥀 🕊️ ✨</h2>
+            </div>
+            
+            <div class="glass-warm rounded-lg p-8 md:p-12 reveal border border-[#c9a66b]/10 relative overflow-hidden">
+                <div class="absolute -top-20 -right-20 w-64 h-64 bg-[#c9a66b]/10 rounded-full blur-3xl"></div>
+                
+                <div class="prose-poetry text-[#b0aba5] leading-[2] text-lg space-y-6 max-w-3xl mx-auto relative z-10">
+                    <p class="drop-cap text-center md:text-left text-[#e8d5b7]">
+                        Briar Wing writes from the liminal spaces—the threshold where the thorn meets the wing, where the dark yields to dawn. The rose (🥀) represents the beautiful wound, the defense that becomes art, the pain that transforms rather than destroys.
+                    </p>
+                    <p>
+                        The bird (🕊️) is the breaking free—not as escape, but as evolution. It carries the thorn's wisdom into the sky, understanding that flight requires both the wound and the will to rise.
+                    </p>
+                    <p>
+                        The sun (✨) is not the absence of shadow, but the light that makes the shadow visible. It represents the hard-won dawn after the long night of writing, the community gathering, the hope that persists.
+                    </p>
+                    <p class="text-[#c9a66b] italic font-serif text-xl text-center mt-8">
+                        "From the thorn, the wing. From the wound, the word. From the night, the light."
+                    </p>
+                </div>
+                
+                <div class="mt-12 pt-8 border-t border-[#c9a66b]/10 flex flex-wrap justify-center gap-12 text-center">
+                    <div class="group cursor-default">
+                        <p class="text-3xl mb-2 group-hover:scale-110 transition-transform">🥀</p>
+                        <p class="text-xs uppercase tracking-[0.2em] text-[#8b2635]">The Thorn</p>
+                        <p class="text-[10px] text-[#5a5550] mt-1">Survival</p>
+                    </div>
+                    <div class="group cursor-default">
+                        <p class="text-3xl mb-2 group-hover:scale-110 transition-transform">🕊️</p>
+                        <p class="text-xs uppercase tracking-[0.2em] text-[#c9a66b]">The Wing</p>
+                        <p class="text-[10px] text-[#5a5550] mt-1">Freedom</p>
+                    </div>
+                    <div class="group cursor-default">
+                        <p class="text-3xl mb-2 group-hover:scale-110 transition-transform">✨</p>
+                        <p class="text-xs uppercase tracking-[0.2em] text-[#f4e4bc]">The Light</p>
+                        <p class="text-[10px] text-[#5a5550] mt-1">Becoming</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider-rose reveal"></div>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-32 px-6 bg-journey-dark relative">
+        <div class="max-w-2xl mx-auto text-center reveal">
+            <span class="text-[#c9a66b] text-xs tracking-[0.3em] uppercase">Correspondence</span>
+            <h2 class="font-serif text-4xl md:text-5xl mt-4 mb-6 font-light italic text-[#e8d5b7]">Send Word</h2>
+            <p class="text-[#9a9590] mb-12 leading-relaxed">
+                For inquiries regarding the book, artifacts, readings, or simply to share your own story of breaking free. 
+                All correspondence held in confidence.
+            </p>
+            
+            <div class="glass-warm rounded-lg p-8 border border-[#8b2635]/20 relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#8b2635] via-[#c9a66b] to-[#f4e4bc]"></div>
+                
+                <form class="space-y-6 text-left" onsubmit="event.preventDefault(); alert('Thank you for your message. The bird carries your words.');">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs uppercase tracking-[0.2em] text-[#9a9590] mb-2">Name</label>
+                            <input type="text" required 
+                                class="w-full px-4 py-3 bg-[#0a0a0f]/50 border border-[#c9a66b]/20 rounded-sm focus:border-[#8b2635] outline-none transition-colors text-[#e8d5b7] placeholder-[#5a5550]">
+                        </div>
+                        <div>
+                            <label class="block text-xs uppercase tracking-[0.2em] text-[#9a9590] mb-2">Email</label>
+                            <input type="email" required 
+                                class="w-full px-4 py-3 bg-[#0a0a0f]/50 border border-[#c9a66b]/20 rounded-sm focus:border-[#8b2635] outline-none transition-colors text-[#e8d5b7] placeholder-[#5a5550]">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-[0.2em] text-[#9a9590] mb-2">Subject</label>
+                        <select class="w-full px-4 py-3 bg-[#0a0a0f]/50 border border-[#c9a66b]/20 rounded-sm focus:border-[#8b2635] outline-none transition-colors text-[#e8d5b7] text-sm">
+                            <option class="bg-[#1a1518]">Book Inquiry 🥀</option>
+                            <option class="bg-[#1a1518]">Artifact Request 🕊️</option>
+                            <option class="bg-[#1a1518]">Reading Request ✨</option>
+                            <option class="bg-[#1a1518]">Personal Correspondence</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-[0.2em] text-[#9a9590] mb-2">Message</label>
+                        <textarea rows="5" required 
+                            class="w-full px-4 py-3 bg-[#0a0a0f]/50 border border-[#c9a66b]/20 rounded-sm focus:border-[#8b2635] outline-none transition-colors text-[#e8d5b7] resize-none placeholder-[#5a5550]"></textarea>
+                    </div>
+                    <button type="submit" 
+                        class="w-full py-4 bg-gradient-to-r from-[#8b2635]/20 to-[#c9a66b]/20 border border-[#8b2635]/30 text-[#c9a66b] uppercase tracking-[0.2em] text-sm transition-all duration-300 rounded-sm hover:from-[#8b2635]/30 hover:to-[#c9a66b]/30 hover:shadow-[0_0_20px_rgba(139,38,53,0.2)]">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+            
+            <div class="mt-12 flex justify-center gap-8">
+                <a href="#" class="text-[#8b2635] hover:text-[#c9a66b] transition-colors text-2xl" title="Instagram">🥀</a>
+                <a href="#" class="text-[#c9a66b] hover:text-[#f4e4bc] transition-colors text-2xl" title="TikTok">🕊️</a>
+                <a href="#" class="text-[#f4e4bc] hover:text-white transition-colors text-2xl" title="YouTube">✨</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-16 px-6 bg-[#0a0a0f] border-t border-[#c9a66b]/10">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-3">
+                <span class="text-2xl">🥀🕊️✨</span>
+                <span class="font-serif text-2xl italic text-[#e8d5b7]">Briar Wing</span>
+            </div>
+            
+            <p class="text-[#5a5550] text-sm font-light">
+                © 2025 Briar Wing. All rights reserved. 
+                <span class="hidden md:inline">•</span> 
+                <span class="italic">From the thorn, the wing.</span>
+            </p>
+            
+            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" 
+                class="text-[#8b2635] hover:text-[#c9a66b] transition-colors text-xs uppercase tracking-widest flex items-center gap-2">
+                Return to Light
+                <i data-lucide="arrow-up" class="w-4 h-4"></i>
+            </button>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progress-bar').style.width = scrolled + '%';
+        });
+        
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-[#0a0a0f]/90', 'shadow-lg');
+            } else {
+                navbar.classList.remove('bg-[#0a0a0f]/90', 'shadow-lg');
+            }
+        });
+        
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+        
+        function togglePoem(element) {
+            const content = element.querySelector('.prose-poetry');
+            const icon = element.querySelector('[data-lucide="chevron-down"]');
+            const text = element.querySelector('.expand-text');
+            
+            if (content.style.maxHeight === 'none' || content.style.maxHeight === '') {
+                content.style.maxHeight = '0px';
+                icon.style.transform = 'rotate(0deg)';
+                text.textContent = 'Unfold';
+            } else {
+                content.style.maxHeight = 'none';
+                icon.style.transform = 'rotate(180deg)';
+                text.textContent = 'Fold';
+            }
+        }
+        
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                }
+            });
+        });
+        
+        window.addEventListener('load', () => {
+            const firstPoem = document.querySelector('.poem-card');
+            if (firstPoem) {
+                const content = firstPoem.querySelector('.prose-poetry');
+                const icon = firstPoem.querySelector('[data-lucide="chevron-down"]');
+                const text = firstPoem.querySelector('.expand-text');
+                content.style.maxHeight = 'none';
+                icon.style.transform = 'rotate(180deg)';
+                text.textContent = 'Fold';
+            }
+        });
+    </script>
+</body>
+</html>
